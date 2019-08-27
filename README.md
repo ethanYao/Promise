@@ -7,7 +7,7 @@
 	
 缺点：首先，无法取消Promise，一旦新建它就会立即执行，无法中途取消。其次，如果 不设置回调函数，Promise内部抛出的错误，不会反应到外部。第三，当处于Pending状态时，无法得知目前进展到哪一个阶段(刚刚开始还是即将完成)。
 
-###基本用法
+### 基本用法
 
 初始化可以有两种方式：
 
@@ -32,7 +32,7 @@
 	    } )
 	}
 	
-###then和catch的用法
+### then和catch的用法
 
 这两个都是链式使用的，都是处理promise状态更改后的回调函数，也有返回值，返回的也是一个promise对象（这个对象的抛错具有冒泡性质，不断传递），不一样的只是then可以接受两个参数，第一个是resolve，第二个是reject，正常来说，捕获error不要用then的第二个参数，因为这个只能捕获指定的promise中的error，而使用catch来捕获则可以捕获包括then里面的error，同时也可以在后面继续写一个catch来捕获catch（）里面的error。另外，使用rejects()方法改变状态和抛出错误 throw new Error() 的作用是相同的。
 
@@ -63,7 +63,8 @@
   .catch(error =>console.log(error))
 ```
 这里一个异步操作的结果（p1）是另一个异步操作（p2的操作），也就是在p1状态没改变之前，p2是不会改变的，依赖于p1的状态，但不代表p2的状态就会失效。
-###扩展 Promise.all() &  Promise.race()
+### 扩展 Promise.all() &  Promise.race()
+
 promise.all()可以理解为与或非这种逻辑用法，把所有的promise对象放到里面，当所有状态变成了resolve，则这个总的对象就是resolve，如果有一个是reject，那么这个总得状态就是reject。
 
 Promise.race()这个则不一样，对象池里面的谁的状态最先改变，那么总的状态就依他，可以叫做“竞速方法”。
@@ -95,13 +96,13 @@ Promise.try()用法---额外用法
        .then(...)
        .catch(...)
 
-###参考
+### 参考
 
 关于ES6 Promise比较权威的规范：http://www.ecma-international.org/ecma-262/6.0/#sec-promise-objects	
 阮一峰的es6参考：http://es6.ruanyifeng.com/
 
 
-###例子
+### 例子
 
 一个Promise对象的状态一经改变，那么这个Promise就执行完毕，不会再更改状态：
 
@@ -172,7 +173,7 @@ Promise.race()的例子：
 说明：当promise.all()的情况，如果全是resolve的状态，那么返回的参数里面就是一个数组，promise.race()里面，最快返回的Promise对象就是总的Promise对象属性，如果同时返回，那么只取第一个执行的Promise返回的对象的回调函数里面的值或对象。
   	
   	
-###用处，场景
+### 用处，场景
 
 也就是用来把对象链式串起来用，还有异步回调可以使用
 
